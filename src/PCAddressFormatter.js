@@ -1,5 +1,5 @@
 
-
+const kNotFound = "Not Found";
 class PCAddressFormatter  {
 	constructor() {
 		//Empty Constructor
@@ -9,324 +9,669 @@ class PCAddressFormatter  {
 		return string.split(search).join(replacement);
 	}
 
-	static street(street){
-		// This function puts the street in a state where
-		// the following inputs will have the same output
-		// 1234 N Happy St
-		// 1234 n. happy Street
-		// 1234 North Happy st.
+	static fullUSAddress(address){
 
+		// let street, city, state, zipcode, country;
 		// 1. all uppercase
-		street = street.toUpperCase();
+		address = address.toUpperCase();
 
-		// 2. add a space at the end so "414 N Rock Street" > "414 N Rock Street "
-		street = street + " ";
+		// 2. remove United States
+
+		address = PCAddressFormatter.replaceAll(address,'UNITED STATES OF AMERICA','');
+		address = PCAddressFormatter.replaceAll(address,'UNITED STATES','');
+		address = PCAddressFormatter.replaceAll(address,'US','');
+		address = PCAddressFormatter.replaceAll(address,'USA','');
+
+		// 3. remove leading and trailing spaces
+		address = address.trim();
+
+		// 4. remove double spaces '1234  Happy St' > '1234 Happy St'
+		address = PCAddressFormatter.replaceAll(address,'  ',' ');
+		address = PCAddressFormatter.replaceAll(address,'  ',' ');
+		address = PCAddressFormatter.replaceAll(address,'  ',' ');
+		address = PCAddressFormatter.replaceAll(address,'  ',' ');
+		address = PCAddressFormatter.replaceAll(address,'  ',' ');
+
+		// 4. break up the address
+		const words = address.split(' ')
+
+		const maybeZip = words[words.length - 1];
+		if(PCAddressFormatter.isValidZip(maybeZip)){
+			words.pop()
+		}
+
+	}
+
+	// static isValidState(input){
+	// 	// accepts
+	// 	// Arizona
+	// 	// AZ
+
+
+	// 	return true
+	// }
+
+	static isValidZip(input){
+		// accepts
+		// 12345
+		// 12345-6789
+
+		// convert numbers to string
+		input = input + '';
+
+		if(input.includes('-')){
+			const parts = input.split('-')
+			if(parts.length != 2) return false;
+			if(parts[0].length != 5) return false;
+			if(parts[1].length != 4) return false;
+			if(!PCAddressFormatter.isAllNumbers(parts[0])) return false;
+			if(!PCAddressFormatter.isAllNumbers(parts[1])) return false;
+		}else{
+			if(input.length != 5) return false;
+			if(!PCAddressFormatter.isAllNumbers(input)) return false;
+		}
+		return true
+	}
+
+	static isAllNumbers(input){
+
+		for (var i = input.length - 1; i >= 0; i--) {
+			switch(input.charAt(i)){
+				case '1': break
+				case '2': break
+				case '3': break
+				case '4': break
+				case '5': break
+				case '6': break
+				case '7': break
+				case '8': break
+				case '9': break
+				case '0': break
+				default:
+					return false
+			}
+		}
+		return true
+	}
+	static unifyC1Suffix(word){
+
+		// 1. make case insensitive
+		word = word.toUpperCase();
+
+		// 2. trim
+		word = word.trim()
+
+		switch(word){
+
+			// These are the most popular C1s
+			case 'ST':
+				return 'ST';
+			case 'STREET':
+				return 'ST';
+			case 'STRT':
+				return 'ST';
+			case 'STR':
+				return 'ST';
+
+			case 'AVE':
+				return 'AVE';
+			case 'AV':
+				return 'AVE';
+			case 'AVEN':
+				return 'AVE';
+			case 'AVENU':
+				return 'AVE';
+			case 'AVENUE':
+				return 'AVE';
+			case 'AVN':
+				return 'AVE';
+			case 'AVNUE':
+				return 'AVE';
+
+			case 'WAY':
+				return 'WAY';
+			case 'WY':
+				return 'WAY';
+
+			case 'BLVD':
+				return 'BLVD';
+			case 'BOUL':
+				return 'BLVD';
+			case 'BOULEVARD':
+				return 'BLVD';
+			case 'BOULV':
+				return 'BLVD';
+
+			case 'DR':
+				return 'DR';
+			case 'DRIV':
+				return 'DR';
+			case 'DRIVE':
+				return 'DR';
+			case 'DRV':
+				return 'DR';
+
+
+			// All the rest
+
+			case 'ALLEE':
+				return 'ALY';
+			case 'ALLEY':
+				return 'ALY';
+			case 'ALLY':
+				return 'ALY';
+
+			case 'ANEX':
+				return 'ANX';
+			case 'ANNEX':
+				return 'ANX';
+			case 'ANNX':
+				return 'ANX';
+
+			case 'ARCADE':
+				return 'ARC';
+
+			// Moved up
+			// case 'AV':
+			// 	return 'AVE';
+			// case 'AVEN':
+			// 	return 'AVE';
+			// case 'AVENU':
+			// 	return 'AVE';
+			// case 'AVENUE':
+			// 	return 'AVE';
+			// case 'AVN':
+			// 	return 'AVE';
+			// case 'AVNUE':
+			// 	return 'AVE';
+
+			case 'BAYOO':
+				return 'BYU';
+			case 'BAYOU':
+				return 'BYU';
+
+			case 'BEACH':
+				return 'BCH';
+
+			case 'BEND':
+				return 'BND';
+
+			case 'BLUF':
+				return 'BLF';
+			case 'BLUFF':
+				return 'BLF';
+
+			case 'BLUFFS':
+				return 'BLFS';
+
+			case 'BOT':
+				return 'BTM';
+			case 'BOTTM':
+				return 'BTM';
+			case 'BOTTOM':
+				return 'BTM';
+			// Moved up
+			// case 'BOUL':
+			// 	return 'BLVD';
+			// case 'BOULEVARD':
+			// 	return 'BLVD';
+			// case 'BOULV':
+			// 	return 'BLVD';
+
+			case 'BRNCH':
+				return 'BR';
+			case 'BRANCH':
+				return 'BR';
+
+			case 'BRDGE':
+				return 'BRG';
+			case 'BRIDGE':
+				return 'BRG';
+
+			case 'BROOK':
+				return 'BRK';
+
+			case 'BROOKS':
+				return 'BRKS';
+
+			case 'BURG':
+				return 'BG';
+
+			case 'BURGS':
+				return 'BGS';
+
+			case 'BYPA':
+				return 'BYP';
+			case 'BYPAS':
+				return 'BYP';
+			case 'BYPASS':
+				return 'BYP';
+			case 'BYPS':
+				return 'BYP';
+
+			case 'CAMP':
+				return 'CP';
+			case 'CMP':
+				return 'CP';
+
+			case 'CANYN':
+				return 'CYN';
+			case 'CANYON':
+				return 'CYN';
+			case 'CNYN':
+				return 'CYN';
+
+			case 'CAPE':
+				return 'CPE';
+
+			case 'CAUSEWAY':
+				return 'CSWY';
+			case 'CAUSWA':
+				return 'CSWY';
+
+			case 'CEN':
+				return 'CTR';
+			case 'CENT':
+				return 'CTR';
+			case 'CENTER':
+				return 'CTR';
+			case 'CENTR':
+				return 'CTR';
+			case 'CENTRE':
+				return 'CTR';
+			case 'CNTER':
+				return 'CTR';
+			case 'CNTR':
+				return 'CTR';
+
+			case 'CENTERS':
+				return 'CTRS';
+
+			case 'CIRC':
+				return 'CIR';
+			case 'CIRCL':
+				return 'CIR';
+			case 'CIRCLE':
+				return 'CIR';
+			case 'CRCL':
+				return 'CIR';
+			case 'CRCLE':
+				return 'CIR';
+
+			case 'CIRCLES':
+				return 'CIRS';
+
+			case 'CLIFF':
+				return 'CLF';
+
+			case 'CLIFFS':
+				return 'CLFS';
+
+			case 'CLUB':
+				return 'CLB';
+
+			case 'COMMON':
+				return 'CMN';
+
+			case 'COMMONS':
+				return 'CMNS';
+
+			case 'CORNER':
+				return 'COR';
+
+			case 'CORNERS':
+				return 'CORS';
+
+			case 'COURSE':
+				return 'CRSE';
+
+			case 'COURT':
+				return 'CT';
+
+			case 'COURTS':
+				return 'CTS';
+
+			case 'COVE':
+				return 'CV';
+
+			case 'COVES':
+				return 'CVS';
+
+			case 'CREEK':
+				return 'CRES';
+
+			case 'CREST':
+				return 'CRST';
+
+			case 'CROSSING':
+				return 'XING';
+			case 'CRSSNG':
+				return 'XING';
+
+			case 'CROSSROAD':
+				return 'XRD';
+
+			case 'CROSSROADS':
+				return 'XRDS';
+
+			case 'CURVE':
+				return 'CURV';
+
+			case 'DALE':
+				return 'DL';
+			case 'DAM':
+				return 'DM';
+
+			case 'DIV':
+				return 'DV';
+			case 'DIVIDE':
+				return 'DV';
+			case 'DVD':
+				return 'DV';
+			// moved up
+			// case 'DRIV':
+			// 	return 'DR';
+			// case 'DRIVE':
+			// 	return 'DR';
+			// case 'DRV':
+			// 	return 'DR';
+
+			case 'DRIVES':
+				return 'DRS';
+
+			case 'ESTATE':
+				return 'EST';
+
+			case 'ESTATES':
+				return 'ESTS';
+
+			//Stoped doing all of them here
+			// skipped a bunch
+
+			case 'FREEWAY':
+				return 'FWY';
+			case 'FREEWY':
+				return 'FWY';
+			case 'FRWAY':
+				return 'FWY';
+			case 'FRWY':
+				return 'FWY';
+
+			// skipped a bunch
+
+			case 'LANE':
+				return 'LN';
+
+			// skipped a bunch
+
+			case 'LOOPS':
+				return 'LOOP';
+
+			// skipped a bunch
+
+			case 'MANOR':
+				return 'MNR';
+
+			case 'MANORS':
+				return 'MNRS';
+
+			// skipped a bunch
+
+			case 'OVERPASS':
+				return 'OPAS';
+
+			case 'PRK':
+				return 'PARK';
+
+			case 'PARKS':
+				return 'PARK';
+
+			case 'PARKWAY':
+				return 'PKWY';
+			case 'PARKWY':
+				return 'PKWY';
+			case 'PKWAY':
+				return 'PKWY';
+			case 'PKY':
+				return 'PKWY';
+
+			case 'PARKWAYS':
+				return 'PKWY';
+			case 'PKWYS':
+				return 'PKWY';
+
+			case 'PASSAGE':
+				return 'PSGE';
+
+			case 'PATHS':
+				return 'PATH';
+
+			// skipped a bunch
+
+			case 'PLACE':
+				return 'PL';
+
+			// skipped a bunch
+
+			case 'PLAZA':
+				return 'PLZ';
+			case 'PLZA':
+				return 'PLZ';
+
+			case 'POINT':
+				return 'PT';
+			case 'POINTS':
+				return 'PTS';
+
+
+			case 'PORT':
+				return 'PRT';
+			case 'PORTS':
+				return 'PRTS';
+
+			// skipped a bunch
+
+			case 'ROAD':
+				return 'RD';
+
+			case 'ROADS':
+				return 'RDS';
+
+			case 'ROUTE':
+				return 'RTE';
+
+			// skipped a bunch
+
+			case 'SQR':
+				return 'SQ';
+			case 'SQRE':
+				return 'SQ';
+			case 'SQU':
+				return 'SQ';
+			case 'SQUARE':
+				return 'SQ';
+
+			case 'SQRS':
+				return 'SQS';
+			case 'SQUARES':
+				return 'SQS';
+
+			case 'STATION':
+				return 'STA';
+			case 'STATN':
+				return 'STA';
+			case 'STN':
+				return 'STA';
+
+			// skipped a bunch
+
+			// Moved to to
+			// case 'STREET':
+			// 	return 'ST';
+			// case 'STRT':
+			// 	return 'ST';
+			// case 'STR':
+			// 	return 'ST';
+
+			case 'STREETS':
+				return 'STS';
+
+			// skipped a bunch
+
+			case 'TERR':
+				return 'TER';
+			case 'TERRACE':
+				return 'TER';
+
+
+			case 'THROUGHWAY':
+				return 'TRWY';
+
+			// skipped a bunch
+
+			case 'TRAIL':
+				return 'TRL';
+			case 'TRAILS':
+				return 'TRL';
+			case 'TRLS':
+				return 'TRL';
+
+			// skipped a bunch
+
+			case 'TRNPK':
+				return 'TPKE';
+			case 'TURNPIKE':
+				return 'TPKE';
+			case 'TURNPK':
+				return 'TPKE';
+
+			case 'UNDERPASS':
+				return 'UPAS';
+
+			// skipped a bunch
+			case 'VIEW':
+				return 'VW';
+
+			case 'VIEWS':
+				return 'VWS';
+
+			case 'VILL':
+				return 'VLG';
+			case 'VILLAG':
+				return 'VLG';
+			case 'VILLAGE':
+				return 'VLG';
+			case 'VILLG':
+				return 'VLG';
+			case 'VILLIAGE':
+				return 'VLG';
+
+			case 'VILLAGES':
+				return 'VLGS';
+
+			case 'VILLE':
+				return 'VL';
+
+			case 'VIST':
+				return 'VIS';
+			case 'VISTA':
+				return 'VIS';
+			case 'VST':
+				return 'VIS';
+			case 'VSTA':
+				return 'VIS';
+
+			case 'WALKS':
+				return 'WALK';
+			// moved up
+			// case 'WY':
+			// 	return 'WAY';
+
+			case 'WELL':
+				return 'WL';
+			case 'WELLS':
+				return 'WLS';
+			default:
+				return kNotFound;
+		}
+
+	}
+	static street(street){
+
+		// 1. all uppercase "123 N HaPpY StReEt" > "123 n happy st"
+		street = street.toLowerCase();
+
 		// 2. Move NORTH to N
-		street = PCAddressFormatter.replaceAll(street," NORTH "," N ");
-		street = PCAddressFormatter.replaceAll(street," EAST "," E ");
-		street = PCAddressFormatter.replaceAll(street," SOUTH "," S ");
-		street = PCAddressFormatter.replaceAll(street," WEST "," W ");
-
-		// 2. Move N. to N
-		street = PCAddressFormatter.replaceAll(street," N. "," N ");
-		street = PCAddressFormatter.replaceAll(street," E. "," E ");
-		street = PCAddressFormatter.replaceAll(street," S. "," S ");
-		street = PCAddressFormatter.replaceAll(street," W. "," W ");
-
-		// 3. Move STREET to ST
-
-		// From https://pe.usps.com/text/pub28/28apc_002.htm
-		street = PCAddressFormatter.replaceAll(street," ALLEE "," ALY ");
-		street = PCAddressFormatter.replaceAll(street," ALLEY "," ALY ");
-		street = PCAddressFormatter.replaceAll(street," ALLY "," ALY ");
-
-		street = PCAddressFormatter.replaceAll(street," ANEX "," ANX ");
-		street = PCAddressFormatter.replaceAll(street," ANNEX "," ANX ");
-		street = PCAddressFormatter.replaceAll(street," ANNX "," ANX ");
-
-		street = PCAddressFormatter.replaceAll(street," ARCADE "," ARC ");
-
-		street = PCAddressFormatter.replaceAll(street," AV "," AVE ");
-		street = PCAddressFormatter.replaceAll(street," AVEN "," AVE ");
-		street = PCAddressFormatter.replaceAll(street," AVENU "," AVE ");
-		street = PCAddressFormatter.replaceAll(street," AVENUE "," AVE ");
-		street = PCAddressFormatter.replaceAll(street," AVN "," AVE ");
-		street = PCAddressFormatter.replaceAll(street," AVNUE "," AVE ");
-
-		street = PCAddressFormatter.replaceAll(street," BAYOO "," BYU ");
-		street = PCAddressFormatter.replaceAll(street," BAYOU "," BYU ");
-
-		street = PCAddressFormatter.replaceAll(street," BEACH "," BCH ");
-
-		street = PCAddressFormatter.replaceAll(street," BEND "," BND ");
-
-		street = PCAddressFormatter.replaceAll(street," BLUF "," BLF ");
-		street = PCAddressFormatter.replaceAll(street," BLUFF "," BLF ");
-
-		street = PCAddressFormatter.replaceAll(street," BLUFFS "," BLFS ");
-
-		street = PCAddressFormatter.replaceAll(street," BOT "," BTM ");
-		street = PCAddressFormatter.replaceAll(street," BOTTM "," BTM ");
-		street = PCAddressFormatter.replaceAll(street," BOTTOM "," BTM ");
-
-		street = PCAddressFormatter.replaceAll(street," BOUL "," BLVD ");
-		street = PCAddressFormatter.replaceAll(street," BOULEVARD "," BLVD ");
-		street = PCAddressFormatter.replaceAll(street," BOULV "," BLVD ");
-
-		street = PCAddressFormatter.replaceAll(street," BRNCH "," BR ");
-		street = PCAddressFormatter.replaceAll(street," BRANCH "," BR ");
-
-		street = PCAddressFormatter.replaceAll(street," BRDGE "," BRG ");
-		street = PCAddressFormatter.replaceAll(street," BRIDGE "," BRG ");
-
-		street = PCAddressFormatter.replaceAll(street," BROOK "," BRK ");
-
-		street = PCAddressFormatter.replaceAll(street," BROOKS "," BRKS ");
-
-		street = PCAddressFormatter.replaceAll(street," BURG "," BG ");
-
-		street = PCAddressFormatter.replaceAll(street," BURGS "," BGS ");
-
-		street = PCAddressFormatter.replaceAll(street," BYPA "," BYP ");
-		street = PCAddressFormatter.replaceAll(street," BYPAS "," BYP ");
-		street = PCAddressFormatter.replaceAll(street," BYPASS "," BYP ");
-		street = PCAddressFormatter.replaceAll(street," BYPS"," BYP ");
-
-		street = PCAddressFormatter.replaceAll(street," CAMP "," CP ");
-		street = PCAddressFormatter.replaceAll(street," CMP "," CP ");
-
-		street = PCAddressFormatter.replaceAll(street," CANYN "," CYN ");
-		street = PCAddressFormatter.replaceAll(street," CANYON "," CYN ");
-		street = PCAddressFormatter.replaceAll(street," CNYN "," CYN ");
-
-		street = PCAddressFormatter.replaceAll(street," CAPE "," CPE ");
-
-		street = PCAddressFormatter.replaceAll(street," CAUSEWAY "," CSWY ");
-		street = PCAddressFormatter.replaceAll(street," CAUSWA "," CSWY ");
-
-		street = PCAddressFormatter.replaceAll(street," CEN "," CTR ");
-		street = PCAddressFormatter.replaceAll(street," CENT "," CTR ");
-		street = PCAddressFormatter.replaceAll(street," CENTER "," CTR ");
-		street = PCAddressFormatter.replaceAll(street," CENTR "," CTR ");
-		street = PCAddressFormatter.replaceAll(street," CENTRE "," CTR ");
-		street = PCAddressFormatter.replaceAll(street," CNTER "," CTR ");
-		street = PCAddressFormatter.replaceAll(street," CNTR "," CTR ");
-
-		street = PCAddressFormatter.replaceAll(street," CENTERS "," CTRS ");
-
-		street = PCAddressFormatter.replaceAll(street," CIRC "," CIR ");
-		street = PCAddressFormatter.replaceAll(street," CIRCL "," CIR ");
-		street = PCAddressFormatter.replaceAll(street," CIRCLE "," CIR ");
-		street = PCAddressFormatter.replaceAll(street," CRCL "," CIR ");
-		street = PCAddressFormatter.replaceAll(street," CRCLE "," CIR ");
-
-		street = PCAddressFormatter.replaceAll(street," CIRCLES "," CIRS ");
-
-		street = PCAddressFormatter.replaceAll(street," CLIFF "," CLF ");
-
-		street = PCAddressFormatter.replaceAll(street," CLIFFS "," CLFS ");
-
-		street = PCAddressFormatter.replaceAll(street," CLUB "," CLB ");
-
-		street = PCAddressFormatter.replaceAll(street," COMMON "," CMN ");
-
-		street = PCAddressFormatter.replaceAll(street," COMMONS "," CMNS ");
-
-		street = PCAddressFormatter.replaceAll(street," CORNER "," COR ");
-
-		street = PCAddressFormatter.replaceAll(street," CORNERS "," CORS ");
-
-		street = PCAddressFormatter.replaceAll(street," COURSE "," CRSE ");
-
-		street = PCAddressFormatter.replaceAll(street," COURT "," CT ");
-
-		street = PCAddressFormatter.replaceAll(street," COURTS "," CTS ");
-
-		street = PCAddressFormatter.replaceAll(street," COVE "," CV ");
-
-		street = PCAddressFormatter.replaceAll(street," COVES "," CVS ");
-
-		street = PCAddressFormatter.replaceAll(street," CREEK "," CRES ");
-
-		street = PCAddressFormatter.replaceAll(street," CREST "," CRST ");
-
-		street = PCAddressFormatter.replaceAll(street," CROSSING "," XING ");
-		street = PCAddressFormatter.replaceAll(street," CRSSNG "," XING ");
-
-		street = PCAddressFormatter.replaceAll(street," CROSSROAD "," XRD ");
-
-		street = PCAddressFormatter.replaceAll(street," CROSSROADS "," XRDS ");
-
-		street = PCAddressFormatter.replaceAll(street," CURVE "," CURV ");
-
-		street = PCAddressFormatter.replaceAll(street," DALE "," DL ");
-		street = PCAddressFormatter.replaceAll(street," DAM "," DM ");
-
-		street = PCAddressFormatter.replaceAll(street," DIV "," DV ");
-		street = PCAddressFormatter.replaceAll(street," DIVIDE "," DV ");
-		street = PCAddressFormatter.replaceAll(street," DVD "," DV ");
-
-		street = PCAddressFormatter.replaceAll(street," DRIV "," DR ");
-		street = PCAddressFormatter.replaceAll(street," DRIVE "," DR ");
-		street = PCAddressFormatter.replaceAll(street," DRV "," DR ");
-
-		street = PCAddressFormatter.replaceAll(street," DRIVES "," DRS ");
-
-		street = PCAddressFormatter.replaceAll(street," ESTATE "," EST ");
-
-		street = PCAddressFormatter.replaceAll(street," ESTATES "," ESTS ");
-
-		//Stoped doing all of them here
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," FREEWAY "," FWY ");
-		street = PCAddressFormatter.replaceAll(street," FREEWY "," FWY ");
-		street = PCAddressFormatter.replaceAll(street," FRWAY "," FWY ");
-		street = PCAddressFormatter.replaceAll(street," FRWY "," FWY ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," LANE "," LN ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," LOOPS "," LOOP ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," MANOR "," MNR ");
-
-		street = PCAddressFormatter.replaceAll(street," MANORS "," MNRS ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," OVERPASS "," OPAS ");
-
-		street = PCAddressFormatter.replaceAll(street," PRK "," PARK ");
-
-		street = PCAddressFormatter.replaceAll(street," PARKS "," PARK ");
-
-		street = PCAddressFormatter.replaceAll(street," PARKWAY "," PKWY ");
-		street = PCAddressFormatter.replaceAll(street," PARKWY "," PKWY ");
-		street = PCAddressFormatter.replaceAll(street," PKWAY "," PKWY ");
-		street = PCAddressFormatter.replaceAll(street," PKY "," PKWY ");
-
-		street = PCAddressFormatter.replaceAll(street," PARKWAYS "," PKWY ");
-		street = PCAddressFormatter.replaceAll(street," PKWYS "," PKWY ");
-
-		street = PCAddressFormatter.replaceAll(street," PASSAGE "," PSGE ");
-
-		street = PCAddressFormatter.replaceAll(street," PATHS "," PATH ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," PLACE "," PL ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," PLAZA "," PLZ ");
-		street = PCAddressFormatter.replaceAll(street," PLZA "," PLZ ");
-
-		street = PCAddressFormatter.replaceAll(street," POINT "," PT ");
-		street = PCAddressFormatter.replaceAll(street," POINTS "," PTS ");
-
-
-		street = PCAddressFormatter.replaceAll(street," PORT "," PRT ");
-		street = PCAddressFormatter.replaceAll(street," PORTS "," PRTS ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," ROAD "," RD ");
-
-		street = PCAddressFormatter.replaceAll(street," ROADS "," RDS ");
-
-		street = PCAddressFormatter.replaceAll(street," ROUTE "," RTE ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," SQR "," SQ ");
-		street = PCAddressFormatter.replaceAll(street," SQRE "," SQ ");
-		street = PCAddressFormatter.replaceAll(street," SQU "," SQ ");
-		street = PCAddressFormatter.replaceAll(street," SQUARE "," SQ ");
-
-		street = PCAddressFormatter.replaceAll(street," SQRS "," SQS ");
-		street = PCAddressFormatter.replaceAll(street," SQUARES "," SQS ");
-
-		street = PCAddressFormatter.replaceAll(street," STATION "," STA ");
-		street = PCAddressFormatter.replaceAll(street," STATN "," STA ");
-		street = PCAddressFormatter.replaceAll(street," STN "," STA ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," STREET "," ST ");
-		street = PCAddressFormatter.replaceAll(street," STRT "," ST ");
-		street = PCAddressFormatter.replaceAll(street," STR "," ST ");
-		street = PCAddressFormatter.replaceAll(street," STREETS "," STS ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," TERR "," TER ");
-		street = PCAddressFormatter.replaceAll(street," TERRACE "," TER ");
-
-
-		street = PCAddressFormatter.replaceAll(street," THROUGHWAY "," TRWY ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," TRAIL "," TRL ");
-		street = PCAddressFormatter.replaceAll(street," TRAILS "," TRL ");
-		street = PCAddressFormatter.replaceAll(street," TRLS "," TRL ");
-
-		// skipped a bunch
-
-		street = PCAddressFormatter.replaceAll(street," TRNPK "," TPKE ");
-		street = PCAddressFormatter.replaceAll(street," TURNPIKE "," TPKE ");
-		street = PCAddressFormatter.replaceAll(street," TURNPK "," TPKE ");
-
-		street = PCAddressFormatter.replaceAll(street," UNDERPASS "," UPAS ");
-
-		// skipped a bunch
-		street = PCAddressFormatter.replaceAll(street," VIEW "," VW ");
-
-		street = PCAddressFormatter.replaceAll(street," VIEWS "," VWS ");
-
-		street = PCAddressFormatter.replaceAll(street," VILL "," VLG ");
-		street = PCAddressFormatter.replaceAll(street," VILLAG "," VLG ");
-		street = PCAddressFormatter.replaceAll(street," VILLAGE "," VLG ");
-		street = PCAddressFormatter.replaceAll(street," VILLG "," VLG ");
-		street = PCAddressFormatter.replaceAll(street," VILLIAGE "," VLG ");
-
-		street = PCAddressFormatter.replaceAll(street," VILLAGES "," VLGS ");
-
-		street = PCAddressFormatter.replaceAll(street," VILLE "," VL ");
-
-		street = PCAddressFormatter.replaceAll(street," VIST "," VIS ");
-		street = PCAddressFormatter.replaceAll(street," VISTA "," VIS ");
-		street = PCAddressFormatter.replaceAll(street," VST "," VIS ");
-		street = PCAddressFormatter.replaceAll(street," VSTA "," VIS ");
-
-		street = PCAddressFormatter.replaceAll(street," WALKS "," WALK ");
-
-		street = PCAddressFormatter.replaceAll(street," WY "," WAY ");
-
-		street = PCAddressFormatter.replaceAll(street," WELL "," WL ");
-		street = PCAddressFormatter.replaceAll(street," WELLS "," WLS ");
-
-		// 4. remove leading and trailing
-		street = street.trim();
-
-		return street;
+		street = PCAddressFormatter.replaceAll(street," north "," N ");
+		street = PCAddressFormatter.replaceAll(street," east "," E ");
+		street = PCAddressFormatter.replaceAll(street," south "," S ");
+		street = PCAddressFormatter.replaceAll(street," west "," W ");
+
+		// 3. Move N. to N
+		street = PCAddressFormatter.replaceAll(street," n. "," N ");
+		street = PCAddressFormatter.replaceAll(street," e. "," E ");
+		street = PCAddressFormatter.replaceAll(street," s. "," S ");
+		street = PCAddressFormatter.replaceAll(street," w. "," W ");
+
+		const parts = street.split(' ')
+		// This method relies on some assumptions
+		// A. There will only ever be 1 “C1 street suffix” (ie. never “bvld rd” just “bvld” or “rd”)
+		// B. Some “C1 street suffixes” are more popular than others. (so we can increase efficency by putting them higher in the unifyC1Suffix switch)
+		// C. The “C1 street suffix” will most often be the last word of the “street” section. (so we work backwards)
+
+		// start with the last and work backwards
+		// looking for the suffix
+
+		let foundSuffix = false;
+		let finalString = '';
+		for (var i = parts.length - 1; i >= 0; i--) {
+			let aPart = parts[i];
+			if(!foundSuffix){
+				const replacment = PCAddressFormatter.unifyC1Suffix(aPart);
+				if(replacment !== kNotFound){
+					// we found the suffix
+					aPart = replacment.toLowerCase();
+					foundSuffix = true;
+				}
+			}
+
+			// create our final string starting with the last word
+			// iteration 1: 'St '
+			// iteration 2: 'Happy St '
+			// iteration 3: 'N Happy St '
+			// iteration 3: '123 N Happy St '
+			finalString = aPart.charAt(0).toUpperCase() + aPart.slice(1) + ' ' + finalString;
+
+		}
+
+		// remove the trailing space "123 N Happy St " > "123 N Happy St"
+		finalString = finalString.trim();
+
+		return finalString;
 	}
 
 	static city(city){
 
-		// 1. all uppercase
-		city = city.toUpperCase();
+		// 1. all lowercase
+		city = city.toLowerCase();
 
 		// 2. remove leading and trailing
 		city = city.trim();
 
-		return city;
+		// 3. split into words
+		const allWords = city.split(' ')
+
+		// 4. capitalize first letter of each
+		let finalString = '';
+		for (var i = 0; i < allWords.length; i++) {
+			const aWord = allWords[i]
+			finalString = finalString + aWord.charAt(0).toUpperCase() + aWord.slice(1) + ' ';
+		}
+
+		// 5. remove final space
+		finalString = finalString.trim();
+
+		return finalString;
 	}
 	static state(state){
 		// This function changes the state to
@@ -410,8 +755,37 @@ class PCAddressFormatter  {
 
 	}
 
-
 	static country(country){
+		// 1. all uppercase
+		country = country.toUpperCase();
+
+		// 2. remove spaces
+		country = PCAddressFormatter.replaceAll(country," ","");
+
+		// 3. abriviate
+		if(country == "UNITEDSTATESOFAMERICA" ||
+			country == "UNITEDSTATES" ||
+			country == "USA"){
+			country = "US";
+		}
+
+		if(country == "MEXICO" ||
+			country == "MEX"){
+			country = "MX";
+		}
+
+		if(country == "CANADA" ||
+			country == "CAN"){
+			country = "CA";
+		}
+
+		// 4. remove leading and trailing
+		country = country.trim();
+
+		return country;
+	}
+
+	static country3Letter(country){
 		// 1. all uppercase
 		country = country.toUpperCase();
 
@@ -441,7 +815,7 @@ class PCAddressFormatter  {
 		return country;
 	}
 
-	static zipCode(zip){
+	static zipcode(zip){
 
 		// 1. force string
 		zip = zip + "";
