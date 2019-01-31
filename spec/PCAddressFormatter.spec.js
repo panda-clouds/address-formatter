@@ -2,29 +2,83 @@ const PCAddressFormatter = require("../src/PCAddressFormatter.js");
 
 describe('PCAddressFormatter.js', () => {
 
+
+	describe('isValidZip', () => {
+
+		it('should pass 12345 as number', () => {
+
+			const result = PCAddressFormatter.isValidZip(12345);
+
+			expect(result).toBe(true);
+
+		});
+
+		it('should pass 12345', () => {
+
+			const result = PCAddressFormatter.isValidZip("12345");
+
+			expect(result).toBe(true);
+
+		});
+
+		it('should pass 12345-6789', () => {
+
+			const result = PCAddressFormatter.isValidZip("12345-6789");
+
+			expect(result).toBe(true);
+
+		});
+
+		it('should fail w2345', () => {
+
+			const result = PCAddressFormatter.isValidZip("w2345");
+
+			expect(result).toBe(false);
+
+		});
+
+		it('should fail w2345-6789', () => {
+
+			const result = PCAddressFormatter.isValidZip("w2345-6789");
+
+			expect(result).toBe(false);
+
+		});
+
+		it('should fail 12345-w789', () => {
+
+			const result = PCAddressFormatter.isValidZip("12345-w789");
+
+			expect(result).toBe(false);
+
+		});
+
+	});
+
+
 	describe('street', () => {
 
-		it('should change 123 North Happy Street > 123 N HAPPY ST', () => {
+		it('should change 123 North Happy Street > 123 N Happy St', () => {
 
 			const result = PCAddressFormatter.street("123 North Happy Street");
 
-			expect(result).toBe("123 N HAPPY ST");
+			expect(result).toBe("123 N Happy St");
 
 		});
 
-		it('should change 123 N. Happy Street > 123 N HAPPY ST', () => {
+		it('should change 123 N. Happy Street > 123 N Happy St', () => {
 
 			const result = PCAddressFormatter.street("123 N. Happy Street");
 
-			expect(result).toBe("123 N HAPPY ST");
+			expect(result).toBe("123 N Happy St");
 
 		});
 
-		it('should change 123 n Happy Street > 123 N HAPPY ST', () => {
+		it('should change 123 n Happy Street > 123 N Happy St', () => {
 
 			const result = PCAddressFormatter.street("123 n Happy Street");
 
-			expect(result).toBe("123 N HAPPY ST");
+			expect(result).toBe("123 N Happy St");
 
 		});
 
@@ -36,7 +90,7 @@ describe('PCAddressFormatter.js', () => {
 
 			const result = PCAddressFormatter.city("Gilbert");
 
-			expect(result).toBe("GILBERT");
+			expect(result).toBe("Gilbert");
 
 		});
 
@@ -44,7 +98,7 @@ describe('PCAddressFormatter.js', () => {
 
 			const result = PCAddressFormatter.city("San Antonio");
 
-			expect(result).toBe("SAN ANTONIO");
+			expect(result).toBe("San Antonio");
 
 		});
 
@@ -91,11 +145,11 @@ describe('PCAddressFormatter.js', () => {
 
 	describe('country', () => {
 
-		it('should change US > USA', () => {
+		it('should change USA > US', () => {
 
 			const result = PCAddressFormatter.country("US");
 
-			expect(result).toBe("USA");
+			expect(result).toBe("US");
 
 		});
 
@@ -104,7 +158,7 @@ describe('PCAddressFormatter.js', () => {
 
 			const result = PCAddressFormatter.country("United States");
 
-			expect(result).toBe("USA");
+			expect(result).toBe("US");
 
 		});
 
@@ -112,7 +166,7 @@ describe('PCAddressFormatter.js', () => {
 
 			const result = PCAddressFormatter.country("United States of America");
 
-			expect(result).toBe("USA");
+			expect(result).toBe("US");
 
 		});
 
@@ -121,7 +175,7 @@ describe('PCAddressFormatter.js', () => {
 
 			const result = PCAddressFormatter.country("Mexico");
 
-			expect(result).toBe("MEX");
+			expect(result).toBe("MX");
 
 		});
 
@@ -129,17 +183,17 @@ describe('PCAddressFormatter.js', () => {
 
 			const result = PCAddressFormatter.country("Canada");
 
-			expect(result).toBe("CAN");
+			expect(result).toBe("CA");
 
 		});
 
 	});
 
-	describe('zipCode', () => {
+	describe('zipcode', () => {
 
 		it('should change 8 52 34 > 85234 as String', () => {
 
-			const result = PCAddressFormatter.zipCode("8 52 34");
+			const result = PCAddressFormatter.zipcode("8 52 34");
 
 			expect(result).toBe("85234");
 
@@ -147,7 +201,7 @@ describe('PCAddressFormatter.js', () => {
 
 		it('should change 8 52 34 > 85234 as Number', () => {
 
-			const result = PCAddressFormatter.zipCode(85234);
+			const result = PCAddressFormatter.zipcode(85234);
 
 			expect(result).toBe("85234");
 

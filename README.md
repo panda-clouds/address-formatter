@@ -28,10 +28,10 @@ Usage
 const PCAddressFormatter = require('@panda-clouds/address-formatter');
 
 // example usage
-PCAddressFormatter.street('123 North Happy Street'); // => '123 N HAPPY ST';
-PCAddressFormatter.city('San Antonio'); // => 'SAN ANTONIO';
+PCAddressFormatter.street('123 North Happy Street'); // => '123 N Happy St';
+PCAddressFormatter.city('San Antonio'); // => 'San Antonio';
 PCAddressFormatter.state('Arizona'); // => 'AZ';
-PCAddressFormatter.country('United States of America'); // => 'USA';
+PCAddressFormatter.country('United States of America'); // => 'US';
 PCAddressFormatter.zipCode(85234); // => '85234';
 ```
 
@@ -45,38 +45,21 @@ Methods
 
 ### - street(input)
 
-Returns the street input formatted in the following way.
-1. Convert to uppercase
-2. NORTH > N and N. > N
-3. DRIVE > DR
-4. Remove leading and trailing spaces
-
 Example:
 
 ```javascript
-PCAddressFormatter.street('123 North Happy Street'); // => '123 N HAPPY ST';
+PCAddressFormatter.street('123 North Happy Street'); // => '123 N Happy St;
 ```
 
 ### - city(input)
 
-Returns the city input formatted in the following way.
-1. Convert to uppercase
-2. Remove leading and trailing spaces
-
 Example:
 
 ```javascript
-PCAddressFormatter.city('San Antonio'); // => 'SAN ANTONIO';
+PCAddressFormatter.city('San Antonio'); // => 'San Antonio';
 ```
 
 ### - state(input)
-
-Returns the state input formatted in the following way.
-1. Convert to uppercase
-2. Remove all spaces
-3. Remove all periods
-4. ALABAMA > AL
-5. Remove leading and trailing spaces
 
 Example:
 
@@ -86,29 +69,19 @@ PCAddressFormatter.state('Arizona'); // => 'AZ';
 
 ### - country(input)
 
-Returns the country input formatted in the following way.
-1. Convert to uppercase
-2. Remove all spaces
-3. UNITEDSTATESOFAMERICA > USA
-4. Remove leading and trailing spaces
-
 Example:
 
 ```javascript
-PCAddressFormatter.country('United States of America'); // => 'USA';
+PCAddressFormatter.country('United States of America'); // => 'US';
 ```
 
-### - zipCode(input)
+### - zipcode(input)
 
-Returns the zipCode input formatted in the following way.
-1. Convert to string
-2. Remove all spaces
-3. Remove leading and trailing spaces
 
 Example:
 
 ```javascript
-PCAddressFormatter.zipCode(85234); // => '85234';
+PCAddressFormatter.zipcode(85234); // => '85234';
 ```
 
 
