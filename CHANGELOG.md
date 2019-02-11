@@ -3,6 +3,10 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 2.2.1
+
+- removed logs
+
 ### 2.2.0
 
 - added PL option

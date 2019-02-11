@@ -94,8 +94,6 @@ class PCAddressFormatter  {
 		return true
 	}
 	static unifyC1Suffix(word){
-		// eslint-disable-next-line no-console
-		console.log("word before:" + word)
 		// 1. make case insensitive
 		word = word.toUpperCase();
 
@@ -105,8 +103,6 @@ class PCAddressFormatter  {
 		// 3. remove periods and commas
 		word = PCAddressFormatter.replaceAll(word,".","");
 		word = PCAddressFormatter.replaceAll(word,",","");
-		// eslint-disable-next-line no-console
-		console.log("word after:" + word)
 		switch(word){
 
 			// These are the most popular C1s
