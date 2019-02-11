@@ -263,6 +263,14 @@ describe('PCAddressFormatter.js', () => {
 			expect(result).toBe("123 N Happy St");
 
 		});
+
+		it('should change 123 n Happy NotAC1 > 123 N Happy Notac1', () => {
+
+			const result = PCAddressFormatter.street('123 n Happy NotAC1');
+
+			expect(result).toBe("123 N Happy Notac1");
+
+		});
 	});
 
 	describe('city', () => {

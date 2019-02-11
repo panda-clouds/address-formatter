@@ -166,6 +166,10 @@ class PCAddressFormatter  {
 			case 'DRV':
 				return 'DR';
 
+			case 'PL':
+				return 'PL';
+			case 'PLACE':
+				return 'PL';
 
 			// All the rest
 
@@ -463,8 +467,11 @@ class PCAddressFormatter  {
 
 			// skipped a bunch
 
-			case 'PLACE':
-				return 'PL';
+			// Moved Up
+			// case 'PL':
+			// 	return 'PL';
+			// case 'PLACE':
+			// 	return 'PL';
 
 			// skipped a bunch
 
@@ -640,6 +647,7 @@ class PCAddressFormatter  {
 		let foundSuffix = false;
 		let finalStreetString = '';
 		let unitString = '';
+		let backUpString = '';
 		for (var i = parts.length - 1; i >= 0; i--) {
 			let aPart = parts[i];
 			if(!foundSuffix){
@@ -650,7 +658,7 @@ class PCAddressFormatter  {
 					foundSuffix = true;
 				}
 			}
-
+			backUpString  = aPart.charAt(0).toUpperCase() + aPart.slice(1) + ' ' + backUpString;
 			// create our final string starting with the last word
 			// iteration 1: Not Stored '123'
 			// iteration 2: Not Stored 'Lot'
@@ -696,6 +704,10 @@ class PCAddressFormatter  {
 
 			}
 
+		}
+		// in case we don't find the suffix return what we have instead of an empty string
+		if(!foundSuffix){
+			finalStreetString = backUpString;
 		}
 
 		// remove the trailing space "123 N Happy St " > "123 N Happy St"

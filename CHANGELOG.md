@@ -3,6 +3,11 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 2.2.0
+
+- added PL option
+- avoid clobbering the string if we can't find the C1
+
 ### 2.1.0
 
 - added real life examples seen in production
