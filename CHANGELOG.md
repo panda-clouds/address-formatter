@@ -3,6 +3,10 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 2.3.0
+
+- truncated the plus 4 from zipcode for uniform entry
+
 ### 2.2.1
 
 - removed logs

@@ -396,6 +396,14 @@ describe('PCAddressFormatter.js', () => {
 
 		});
 
+		it('should change 85234 - 1234 > 85234 as String', () => {
+
+			const result = PCAddressFormatter.zipcode("85234 - 1234");
+
+			expect(result).toBe("85234");
+
+		});
+
 	});
 
 });

@@ -905,6 +905,23 @@ class PCAddressFormatter  {
 		// 3. remove leading and trailing
 		zip = zip.trim();
 
+		// 4. keep only the first 5 numbers
+		zip = zip.substring(0,5);
+
+		return zip;
+	}
+
+	static zipcodePlus4(zip){
+
+		// 1. force string
+		zip = zip + "";
+
+		// 2. remove spaces
+		zip = PCAddressFormatter.replaceAll(zip," ","");
+
+		// 3. remove leading and trailing
+		zip = zip.trim();
+
 		return zip;
 	}
 
