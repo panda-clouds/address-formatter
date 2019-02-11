@@ -94,13 +94,19 @@ class PCAddressFormatter  {
 		return true
 	}
 	static unifyC1Suffix(word){
-
+		// eslint-disable-next-line no-console
+		console.log("word before:" + word)
 		// 1. make case insensitive
 		word = word.toUpperCase();
 
 		// 2. trim
 		word = word.trim()
 
+		// 3. remove periods and commas
+		word = PCAddressFormatter.replaceAll(word,".","");
+		word = PCAddressFormatter.replaceAll(word,",","");
+		// eslint-disable-next-line no-console
+		console.log("word after:" + word)
 		switch(word){
 
 			// These are the most popular C1s
@@ -111,6 +117,11 @@ class PCAddressFormatter  {
 			case 'STRT':
 				return 'ST';
 			case 'STR':
+				return 'ST';
+			// Common misspellings
+			case 'STEEET':
+				return 'ST';
+			case 'STEET':
 				return 'ST';
 
 			case 'AVE':
@@ -141,6 +152,10 @@ class PCAddressFormatter  {
 				return 'BLVD';
 			case 'BOULV':
 				return 'BLVD';
+			// Common misspellings
+			case 'BVLD':
+				return 'BLVD';
+
 
 			case 'DR':
 				return 'DR';
@@ -596,7 +611,7 @@ class PCAddressFormatter  {
 		}
 
 	}
-	static street(street){
+	static streetAndUnit(street){
 
 		// 1. all uppercase "123 N HaPpY StReEt" > "123 n happy st"
 		street = street.toLowerCase();
@@ -623,7 +638,8 @@ class PCAddressFormatter  {
 		// looking for the suffix
 
 		let foundSuffix = false;
-		let finalString = '';
+		let finalStreetString = '';
+		let unitString = '';
 		for (var i = parts.length - 1; i >= 0; i--) {
 			let aPart = parts[i];
 			if(!foundSuffix){
@@ -636,18 +652,73 @@ class PCAddressFormatter  {
 			}
 
 			// create our final string starting with the last word
-			// iteration 1: 'St '
-			// iteration 2: 'Happy St '
-			// iteration 3: 'N Happy St '
-			// iteration 3: '123 N Happy St '
-			finalString = aPart.charAt(0).toUpperCase() + aPart.slice(1) + ' ' + finalString;
+			// iteration 1: Not Stored '123'
+			// iteration 2: Not Stored 'Lot'
+			// iteration 3: 'St '
+			// iteration 4: 'Happy St '
+			// iteration 5: 'N Happy St '
+			// iteration 6: '123 N Happy St '
+			if(foundSuffix)
+				finalStreetString = aPart.charAt(0).toUpperCase() + aPart.slice(1) + ' ' + finalStreetString;
+			else{
+				let shouldAdd = true;
+				// 1. to lowercase
+				let cleanedPart = aPart.toLowerCase()
+				// 2. remove periods and commas
+				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,".","");
+
+				switch(aPart){
+
+					case "lot":
+						shouldAdd = false;
+						break;
+					case "unit":
+						shouldAdd = false;
+						break;
+					case "apt":
+						shouldAdd = false;
+						break;
+					case "appartment":
+						shouldAdd = false;
+						break;
+					case "apartment":
+						shouldAdd = false;
+						break;
+					case "#":
+						shouldAdd = false;
+						break;
+				}
+				if(shouldAdd){
+					// handle '#123' > '123'
+					aPart =  PCAddressFormatter.replaceAll(aPart,"#","");
+					unitString = aPart.charAt(0).toUpperCase() + aPart.slice(1) + ' ' + unitString;
+				}
+
+			}
 
 		}
 
 		// remove the trailing space "123 N Happy St " > "123 N Happy St"
-		finalString = finalString.trim();
+		finalStreetString = finalStreetString.trim();
 
-		return finalString;
+		// remove the trailing space "123 " > "123"
+		unitString = unitString.trim();
+
+		return {'street':finalStreetString,'unit':unitString };
+	}
+
+	static street(street){
+
+		return this.streetAndUnit(street).street;
+
+	}
+
+	static unit(street){
+
+		const rawUnit = this.streetAndUnit(street).unit;
+
+		return rawUnit;
+
 	}
 
 	static city(city){

@@ -82,6 +82,187 @@ describe('PCAddressFormatter.js', () => {
 
 		});
 
+		// Real life examples
+		it('should change 123 n Happy St. > 123 N Happy St', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy St.");
+
+			expect(result).toBe("123 N Happy St");
+
+		});
+
+		it('should change 123 n Happy Blvd. > 123 N Happy Bvld', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy Blvd.");
+
+			expect(result).toBe("123 N Happy Blvd");
+
+		});
+
+		// Unit/Lot/Apartment/Apt etc
+		function checkStreetAndUnit(street){
+			const streetOnly = PCAddressFormatter.street(street);
+			expect(streetOnly).toBe("123 N Happy St");
+
+			const unitOnly = PCAddressFormatter.unit(street);
+			expect(unitOnly).toBe("456");
+		}
+
+		it('should change 123 n Happy St Unit 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St Unit 456");
+
+		});
+
+		it('should change 123 n Happy St unit 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St unit 456");
+
+		});
+
+		it('should change 123 n Happy St Apt 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St Apt 456");
+
+		});
+
+		it('should change 123 n Happy St apt 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St apt 456");
+
+		});
+
+		it('should change 123 n Happy St # 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St # 456");
+
+		});
+
+		it('should change 123 n Happy St #456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St #456");
+
+		});
+
+		it('should change 123 n Happy St 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St 456");
+
+		});
+
+		it('should change 123 n Happy St Lot 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St Lot 456");
+
+		});
+
+		it('should change 123 n Happy St lot 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St lot 456");
+
+		});
+
+		it('should change 123 n Happy St, Apartment 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St, Apartment 456");
+
+		});
+
+		it('should change 123 n Happy St, apartment 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St, apartment 456");
+
+		});
+
+		it('should change 123 n Happy St Apartment 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St Apartment 456");
+
+		});
+
+		it('should change 123 n Happy St apartment 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St apartment 456");
+
+		});
+
+		it('should change 123 n Happy St., Apartment 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St., Apartment 456");
+
+		});
+
+		it('should change 123 n Happy St., apartment 456 > 123 N Happy St', () => {
+
+			checkStreetAndUnit("123 n Happy St., apartment 456")
+
+		});
+
+
+		// Intentional Mispellings
+		it('should change 123 n Happy Bvld. > 123 N Happy Blvd', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy Bvld.");
+
+			expect(result).toBe("123 N Happy Blvd");
+
+		});
+
+		it('should change 123 n Happy bvld > 123 N Happy Blvd', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy bvld");
+
+			expect(result).toBe("123 N Happy Blvd");
+
+		});
+
+		it('should change 123 n Happy Steeet > 123 N Happy St', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy Steeet");
+
+			expect(result).toBe("123 N Happy St");
+
+		});
+
+		it('should change 123 n Happy steeet > 123 N Happy St', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy steeet");
+
+			expect(result).toBe("123 N Happy St");
+
+		});
+
+		it('should change 123 n Happy Steet > 123 N Happy St', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy Steet");
+
+			expect(result).toBe("123 N Happy St");
+
+		});
+
+		it('should change 123 n Happy steet > 123 N Happy St', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy steet");
+
+			expect(result).toBe("123 N Happy St");
+
+		});
+
+		it('should change 123 n Happy St, appartment 123 > 123 N Happy St', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy St, appartment 123");
+
+			expect(result).toBe("123 N Happy St");
+
+		});
+
+		it('should change 123 n Happy St Appartment 123 > 123 N Happy St', () => {
+
+			const result = PCAddressFormatter.street("123 n Happy St Appartment 123");
+
+			expect(result).toBe("123 N Happy St");
+
+		});
 	});
 
 	describe('city', () => {
