@@ -99,6 +99,39 @@ describe('PCAddressFormatter.js', () => {
 
 		});
 
+		it('should return null unit for 123 n Happy St', () => {
+
+			const input = '123 n Happy St'
+			const streetOnly = PCAddressFormatter.street(input);
+			expect(streetOnly).toBe("123 N Happy St");
+
+			const unitOnly = PCAddressFormatter.unit(input);
+			expect(unitOnly).toBe(null);
+
+		});
+
+		it('should return null unit for " 123 n Happy St "', () => {
+
+			const input = ' 123 n Happy St '
+			const streetOnly = PCAddressFormatter.street(input);
+			expect(streetOnly).toBe("123 N Happy St");
+
+			const unitOnly = PCAddressFormatter.unit(input);
+			expect(unitOnly).toBe(null);
+
+		});
+
+		it('should change " 123 n Happy St unit abc1" > "ABC1"', () => {
+
+			const input = ' 123 n Happy St unit abc1'
+			const streetOnly = PCAddressFormatter.street(input);
+			expect(streetOnly).toBe("123 N Happy St");
+
+			const unitOnly = PCAddressFormatter.unit(input);
+			expect(unitOnly).toBe("ABC1");
+
+		});
+
 		// Unit/Lot/Apartment/Apt etc
 		function checkStreetAndUnit(street){
 			const streetOnly = PCAddressFormatter.street(street);
@@ -378,6 +411,82 @@ describe('PCAddressFormatter.js', () => {
 
 	});
 
+	describe('zipcodePlusFour', () => {
+
+		it('should change " 1 2 3 4 - 5 6 7 8 9 " > null as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour(" 1 2 3 4 - 5 6 7 8 9 ");
+
+			expect(result).toBe(null);
+
+		});
+
+		it('should change " 1 2 3 4 5 - 5 6 7 8 9 " > null as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour(" 1 2 3 4 5 - 5 6 7 8 9 ");
+
+			expect(result).toBe(null);
+
+		});
+
+		it('should change " 1 2 3 4 5 - 6 7 8 " > null as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour(" 1 2 3 4 5 - 6 7 8 ");
+
+			expect(result).toBe(null);
+
+		});
+
+		it('should change " 1 2 3 4 - 5 6 7 8 " > null as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour(" 1 2 3 4 - 5 6 7 8");
+
+			expect(result).toBe(null);
+
+		});
+
+		it('should change " 8 5 2 3 4 " > 85234 as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour(" 8 5 2 3 4 ");
+
+			expect(result).toBe("85234");
+
+		});
+
+		it('should change "85234" > 85234 as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour("85234");
+
+			expect(result).toBe("85234");
+
+		});
+
+		it('should change 85234 > 85234 as Number', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour(85234);
+
+			expect(result).toBe("85234");
+
+		});
+
+		it('should change 8 5 2 3 4 - 1 2 3 4 > 85234-1234 as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour(" 8 5 2 3 4 - 1 2 3 4 ");
+
+			expect(result).toBe("85234-1234");
+
+		});
+
+		it('should change 85234-1234 > 85234-1234 as String', () => {
+
+			const result = PCAddressFormatter.zipcodePlusFour("85234-1234");
+
+			expect(result).toBe("85234-1234");
+
+		});
+
+	});
+
 	describe('zipcode', () => {
 
 		it('should change 8 52 34 > 85234 as String', () => {
@@ -401,6 +510,26 @@ describe('PCAddressFormatter.js', () => {
 			const result = PCAddressFormatter.zipcode("85234 - 1234");
 
 			expect(result).toBe("85234");
+
+		});
+
+	});
+
+	describe('plusFour', () => {
+
+		it('should change " 8 52 34 - 43 21 "> 4321', () => {
+
+			const result = PCAddressFormatter.plusFour(" 8 52 34 - 4321 ");
+
+			expect(result).toBe("4321");
+
+		});
+
+		it('should change 85 23 4 > null as String', () => {
+
+			const result = PCAddressFormatter.plusFour(" 85 23 4 ");
+
+			expect(result).toBe(null);
 
 		});
 

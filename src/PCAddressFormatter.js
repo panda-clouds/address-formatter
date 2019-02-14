@@ -615,7 +615,6 @@ class PCAddressFormatter  {
 
 	}
 	static streetAndUnit(street){
-
 		// 1. all uppercase "123 N HaPpY StReEt" > "123 n happy st"
 		street = street.toLowerCase();
 
@@ -662,40 +661,27 @@ class PCAddressFormatter  {
 			// iteration 4: 'Happy St '
 			// iteration 5: 'N Happy St '
 			// iteration 6: '123 N Happy St '
-			if(foundSuffix)
+			if(foundSuffix){
 				finalStreetString = aPart.charAt(0).toUpperCase() + aPart.slice(1) + ' ' + finalStreetString;
-			else{
-				let shouldAdd = true;
+			}else{
 				// 1. to lowercase
 				let cleanedPart = aPart.toLowerCase()
+
 				// 2. remove periods and commas
 				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,".","");
 
-				switch(aPart){
+				// 3. remove lot unit etc
+				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,"lot","");
+				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,"unit","");
+				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,"appartment","");
+				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,"apartment","");
+				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,"apt","");
+				cleanedPart =  PCAddressFormatter.replaceAll(cleanedPart,"#","");
+				// 4. trim
+				cleanedPart = cleanedPart.trim()
 
-					case "lot":
-						shouldAdd = false;
-						break;
-					case "unit":
-						shouldAdd = false;
-						break;
-					case "apt":
-						shouldAdd = false;
-						break;
-					case "appartment":
-						shouldAdd = false;
-						break;
-					case "apartment":
-						shouldAdd = false;
-						break;
-					case "#":
-						shouldAdd = false;
-						break;
-				}
-				if(shouldAdd){
-					// handle '#123' > '123'
-					aPart =  PCAddressFormatter.replaceAll(aPart,"#","");
-					unitString = aPart.charAt(0).toUpperCase() + aPart.slice(1) + ' ' + unitString;
+				if(cleanedPart && cleanedPart != ''){
+					unitString = cleanedPart.toUpperCase() + ' ' + unitString;
 				}
 
 			}
@@ -711,6 +697,9 @@ class PCAddressFormatter  {
 
 		// remove the trailing space "123 " > "123"
 		unitString = unitString.trim();
+		if(unitString == ''){
+			unitString = null;
+		}
 
 		return {'street':finalStreetString,'unit':unitString };
 	}
@@ -724,7 +713,6 @@ class PCAddressFormatter  {
 	static unit(street){
 
 		const rawUnit = this.streetAndUnit(street).unit;
-
 		return rawUnit;
 
 	}
@@ -894,6 +882,23 @@ class PCAddressFormatter  {
 		return country;
 	}
 
+	static zipcodePlusFour(zip){
+
+
+		// 1. force string
+		zip = zip + "";
+
+		// 2. remove spaces
+		zip = PCAddressFormatter.replaceAll(zip," ","");
+
+		// 3. remove leading and trailing
+		zip = zip.trim();
+
+		if(!PCAddressFormatter.isValidZip(zip)) return null
+
+		return zip;
+	}
+
 	static zipcode(zip){
 
 		// 1. force string
@@ -908,10 +913,12 @@ class PCAddressFormatter  {
 		// 4. keep only the first 5 numbers
 		zip = zip.substring(0,5);
 
+		if(!PCAddressFormatter.isValidZip(zip)) return null
+
 		return zip;
 	}
 
-	static zipcodePlus4(zip){
+	static plusFour(zip){
 
 		// 1. force string
 		zip = zip + "";
@@ -922,7 +929,18 @@ class PCAddressFormatter  {
 		// 3. remove leading and trailing
 		zip = zip.trim();
 
-		return zip;
+		if(!PCAddressFormatter.isValidZip(zip)) return null
+
+		let last4 = null;
+		if(zip.length == 10){
+			const parts = zip.split("-");
+			const maybeLast4 = parts[1];
+			if(maybeLast4 && maybeLast4.length == 4){
+				last4 = maybeLast4;
+			}
+		}
+
+		return last4;
 	}
 
 }

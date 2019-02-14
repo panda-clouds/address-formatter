@@ -3,6 +3,13 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 2.4.0
+
+- added plusFour and tests
+- added sipcodePlusFour and tests
+- added test for "unit" return null
+- added test for "unit" with letters
+
 ### 2.3.0
 
 - truncated the plus 4 from zipcode for uniform entry
