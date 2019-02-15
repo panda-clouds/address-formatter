@@ -304,6 +304,16 @@ describe('PCAddressFormatter.js', () => {
 			expect(result).toBe("123 N Happy Notac1");
 
 		});
+
+		// Strange real life examples
+		it('should change 123 E Vista De Valle > 123 E Vista De Valle', () => {
+
+			const result = PCAddressFormatter.street('123 E Vista De Valle');
+
+			expect(result).toBe("123 E Vista De Valle");
+
+		});
+
 	});
 
 	describe('city', () => {

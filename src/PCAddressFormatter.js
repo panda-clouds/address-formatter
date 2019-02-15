@@ -590,14 +590,15 @@ class PCAddressFormatter  {
 			case 'VILLE':
 				return 'VL';
 
-			case 'VIST':
-				return 'VIS';
-			case 'VISTA':
-				return 'VIS';
-			case 'VST':
-				return 'VIS';
-			case 'VSTA':
-				return 'VIS';
+			// this causes "Vista de valle" to fail
+			// case 'VIST':
+			// 	return 'VIS';
+			// case 'VISTA':
+			// 	return 'VIS';
+			// case 'VST':
+			// 	return 'VIS';
+			// case 'VSTA':
+			// 	return 'VIS';
 
 			case 'WALKS':
 				return 'WALK';

@@ -3,6 +3,10 @@
 ### master
 [Full Changelog](https://github.com/panda-clouds/address-formatter/compare/2.0.0...master)
 
+### 2.4.1
+
+- removed "Vista" because it was causing problems
+
 ### 2.4.0
 
 - added plusFour and tests
