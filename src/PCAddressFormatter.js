@@ -167,8 +167,99 @@ class PCAddressFormatter  {
 			case 'PLACE':
 				return 'PL';
 
-			// All the rest
+			case 'PKWY':
+				return 'PKWY';
+			case 'PARKWAY':
+				return 'PKWY';
+			case 'PARKWY':
+				return 'PKWY';
+			case 'PKWAY':
+				return 'PKWY';
+			case 'PKY':
+				return 'PKWY';
 
+			case 'ROAD':
+				return 'RD';
+			case 'RD':
+				return 'RD';
+
+			case 'CIR':
+				return 'CIR';
+			case 'CIRC':
+				return 'CIR';
+			case 'CIRCL':
+				return 'CIR';
+			case 'CIRCLE':
+				return 'CIR';
+			case 'CRCL':
+				return 'CIR';
+			case 'CRCLE':
+				return 'CIR';
+
+			case 'LN':
+				return 'LN';
+			case 'LANE':
+				return 'LN';
+
+
+			// somewhat popular
+			case 'CTR':
+				return 'CTR';
+			case 'CEN':
+				return 'CTR';
+			case 'CENT':
+				return 'CTR';
+			case 'CENTER':
+				return 'CTR';
+			case 'CENTR':
+				return 'CTR';
+			case 'CENTRE':
+				return 'CTR';
+			case 'CNTER':
+				return 'CTR';
+			case 'CNTR':
+				return 'CTR';
+
+			case 'CT':
+				return 'CT';
+			case 'COURT':
+				return 'CT';
+
+			case 'CV':
+				return 'CV';
+			case 'COVE':
+				return 'CV';
+
+			case 'XRD':
+				return 'XRD';
+			case 'CROSSROAD':
+				return 'XRD';
+
+			case 'EST':
+				return 'EST';
+			case 'ESTATE':
+				return 'EST';
+
+			case 'ESTS':
+				return 'ESTS';
+			case 'ESTATES':
+				return 'ESTS';
+
+			case 'PLZ':
+				return 'PLZ';
+			case 'PLAZA':
+				return 'PLZ';
+			case 'PLZA':
+				return 'PLZ';
+
+			case 'VW':
+				return 'VW';
+			case 'VIEW':
+				return 'VW';
+
+			// All the rest
+			case 'ALY':
+				return 'ALY';
 			case 'ALLEE':
 				return 'ALY';
 			case 'ALLEY':
@@ -176,6 +267,8 @@ class PCAddressFormatter  {
 			case 'ALLY':
 				return 'ALY';
 
+			case 'ANX':
+				return 'ANX';
 			case 'ANEX':
 				return 'ANX';
 			case 'ANNEX':
@@ -183,6 +276,8 @@ class PCAddressFormatter  {
 			case 'ANNX':
 				return 'ANX';
 
+			case 'ARC':
+				return 'ARC';
 			case 'ARCADE':
 				return 'ARC';
 
@@ -199,26 +294,37 @@ class PCAddressFormatter  {
 			// 	return 'AVE';
 			// case 'AVNUE':
 			// 	return 'AVE';
-
+			case 'BYU':
+				return 'BYU';
 			case 'BAYOO':
 				return 'BYU';
 			case 'BAYOU':
 				return 'BYU';
 
+			case 'BCH':
+				return 'BCH';
 			case 'BEACH':
 				return 'BCH';
 
+			case 'BND':
+				return 'BND';
 			case 'BEND':
 				return 'BND';
 
+			case 'BLF':
+				return 'BLF';
 			case 'BLUF':
 				return 'BLF';
 			case 'BLUFF':
 				return 'BLF';
 
+			case 'BLFS':
+				return 'BLFS';
 			case 'BLUFFS':
 				return 'BLFS';
 
+			case 'BTM':
+				return 'BTM';
 			case 'BOT':
 				return 'BTM';
 			case 'BOTTM':
@@ -233,28 +339,42 @@ class PCAddressFormatter  {
 			// case 'BOULV':
 			// 	return 'BLVD';
 
+			case 'BR':
+				return 'BR';
 			case 'BRNCH':
 				return 'BR';
 			case 'BRANCH':
 				return 'BR';
 
+			case 'BRG':
+				return 'BRG';
 			case 'BRDGE':
 				return 'BRG';
 			case 'BRIDGE':
 				return 'BRG';
 
+			case 'BRK':
+				return 'BRK';
 			case 'BROOK':
 				return 'BRK';
 
+			case 'BRKS':
+				return 'BRKS';
 			case 'BROOKS':
 				return 'BRKS';
 
+			case 'BG':
+				return 'BG';
 			case 'BURG':
 				return 'BG';
 
+			case 'BGS':
+				return 'BGS';
 			case 'BURGS':
 				return 'BGS';
 
+			case 'BYP':
+				return 'BYP';
 			case 'BYPA':
 				return 'BYP';
 			case 'BYPAS':
@@ -264,11 +384,15 @@ class PCAddressFormatter  {
 			case 'BYPS':
 				return 'BYP';
 
+			case 'CP':
+				return 'CP';
 			case 'CAMP':
 				return 'CP';
 			case 'CMP':
 				return 'CP';
 
+			case 'CYN':
+				return 'CYN';
 			case 'CANYN':
 				return 'CYN';
 			case 'CANYON':
@@ -276,107 +400,154 @@ class PCAddressFormatter  {
 			case 'CNYN':
 				return 'CYN';
 
+			case 'CPE':
+				return 'CPE';
 			case 'CAPE':
 				return 'CPE';
 
+			case 'CSWY':
+				return 'CSWY';
 			case 'CAUSEWAY':
 				return 'CSWY';
 			case 'CAUSWA':
 				return 'CSWY';
+			// moved up
+			// case 'CTR':
+			// 	return 'CTR';
+			// case 'CEN':
+			// 	return 'CTR';
+			// case 'CENT':
+			// 	return 'CTR';
+			// case 'CENTER':
+			// 	return 'CTR';
+			// case 'CENTR':
+			// 	return 'CTR';
+			// case 'CENTRE':
+			// 	return 'CTR';
+			// case 'CNTER':
+			// 	return 'CTR';
+			// case 'CNTR':
+			// 	return 'CTR';
 
-			case 'CEN':
-				return 'CTR';
-			case 'CENT':
-				return 'CTR';
-			case 'CENTER':
-				return 'CTR';
-			case 'CENTR':
-				return 'CTR';
-			case 'CENTRE':
-				return 'CTR';
-			case 'CNTER':
-				return 'CTR';
-			case 'CNTR':
-				return 'CTR';
-
+			case 'CTRS':
+				return 'CTRS';
 			case 'CENTERS':
 				return 'CTRS';
+			//moved up
+			// case 'CIR':
+			// 	return 'CIR';
+			// case 'CIRC':
+			// 	return 'CIR';
+			// case 'CIRCL':
+			// 	return 'CIR';
+			// case 'CIRCLE':
+			// 	return 'CIR';
+			// case 'CRCL':
+			// 	return 'CIR';
+			// case 'CRCLE':
+			// 	return 'CIR';
 
-			case 'CIRC':
-				return 'CIR';
-			case 'CIRCL':
-				return 'CIR';
-			case 'CIRCLE':
-				return 'CIR';
-			case 'CRCL':
-				return 'CIR';
-			case 'CRCLE':
-				return 'CIR';
-
+			case 'CIRS':
+				return 'CIRS';
 			case 'CIRCLES':
 				return 'CIRS';
 
+			case 'CLF':
+				return 'CLF';
 			case 'CLIFF':
 				return 'CLF';
 
+			case 'CLFS':
+				return 'CLFS';
 			case 'CLIFFS':
 				return 'CLFS';
 
+			case 'CLB':
+				return 'CLB';
 			case 'CLUB':
 				return 'CLB';
 
+			case 'CMN':
+				return 'CMN';
 			case 'COMMON':
 				return 'CMN';
 
+			case 'CMNS':
+				return 'CMNS';
 			case 'COMMONS':
 				return 'CMNS';
 
+			case 'COR':
+				return 'COR';
 			case 'CORNER':
 				return 'COR';
 
+			case 'CORS':
+				return 'CORS';
 			case 'CORNERS':
 				return 'CORS';
 
+			case 'CRSE':
+				return 'CRSE';
 			case 'COURSE':
 				return 'CRSE';
 
-			case 'COURT':
-				return 'CT';
+			// case 'CT':
+			// 	return 'CT';
+			// case 'COURT':
+			// 	return 'CT';
 
 			case 'COURTS':
 				return 'CTS';
+			case 'CTS':
+				return 'CTS';
 
-			case 'COVE':
-				return 'CV';
+			// case 'CV':
+			// 	return 'CV';
+			// case 'COVE':
+			// 	return 'CV';
 
+			case 'CVS':
+				return 'CVS';
 			case 'COVES':
 				return 'CVS';
 
+			case 'CRES':
+				return 'CRES';
 			case 'CREEK':
 				return 'CRES';
 
+			case 'CRST':
+				return 'CRST';
 			case 'CREST':
 				return 'CRST';
 
+			case 'XING':
+				return 'XING';
 			case 'CROSSING':
 				return 'XING';
 			case 'CRSSNG':
 				return 'XING';
 
-			case 'CROSSROAD':
-				return 'XRD';
-
+			case 'XRDS':
+				return 'XRDS';
 			case 'CROSSROADS':
 				return 'XRDS';
 
+			case 'CURV':
+				return 'CURV';
 			case 'CURVE':
 				return 'CURV';
 
+			case 'DL':
+				return 'DL';
 			case 'DALE':
 				return 'DL';
 			case 'DAM':
 				return 'DM';
 
+			case 'DV':
+				return 'DV';
 			case 'DIV':
 				return 'DV';
 			case 'DIVIDE':
@@ -391,18 +562,26 @@ class PCAddressFormatter  {
 			// case 'DRV':
 			// 	return 'DR';
 
+			case 'DRS':
+				return 'DRS';
 			case 'DRIVES':
 				return 'DRS';
 
-			case 'ESTATE':
-				return 'EST';
+			// case 'EST':
+			// 	return 'EST';
+			// case 'ESTATE':
+			// 	return 'EST';
 
-			case 'ESTATES':
-				return 'ESTS';
+			// case 'ESTS':
+			// 	return 'ESTS';
+			// case 'ESTATES':
+			// 	return 'ESTS';
 
 			//Stoped doing all of them here
 			// skipped a bunch
 
+			case 'FWY':
+				return 'FWY';
 			case 'FREEWAY':
 				return 'FWY';
 			case 'FREEWY':
@@ -414,50 +593,67 @@ class PCAddressFormatter  {
 
 			// skipped a bunch
 
-			case 'LANE':
-				return 'LN';
+			// case 'LN':
+			// 	return 'LN';
+			// case 'LANE':
+			// 	return 'LN';
 
 			// skipped a bunch
 
+			case 'LOOP':
+				return 'LOOP';
 			case 'LOOPS':
 				return 'LOOP';
 
 			// skipped a bunch
 
+			case 'MNR':
+				return 'MNR';
 			case 'MANOR':
 				return 'MNR';
 
 			case 'MANORS':
 				return 'MNRS';
+			case 'MNRS':
+				return 'MNRS';
 
 			// skipped a bunch
 
+			case 'OPAS':
+				return 'OPAS';
 			case 'OVERPASS':
 				return 'OPAS';
 
+			case 'PARK':
+				return 'PARK';
 			case 'PRK':
 				return 'PARK';
-
 			case 'PARKS':
 				return 'PARK';
-
-			case 'PARKWAY':
-				return 'PKWY';
-			case 'PARKWY':
-				return 'PKWY';
-			case 'PKWAY':
-				return 'PKWY';
-			case 'PKY':
-				return 'PKWY';
+			//moved up
+			// case 'PKWY':
+			// 	return 'PKWY';
+			// case 'PARKWAY':
+			// 	return 'PKWY';
+			// case 'PARKWY':
+			// 	return 'PKWY';
+			// case 'PKWAY':
+			// 	return 'PKWY';
+			// case 'PKY':
+			// 	return 'PKWY';
 
 			case 'PARKWAYS':
 				return 'PKWY';
 			case 'PKWYS':
 				return 'PKWY';
 
+			case 'PSGE':
+				return 'PSGE';
 			case 'PASSAGE':
 				return 'PSGE';
 
+			case 'PATH':
+				return 'PATH';
 			case 'PATHS':
 				return 'PATH';
 
@@ -471,35 +667,50 @@ class PCAddressFormatter  {
 
 			// skipped a bunch
 
-			case 'PLAZA':
-				return 'PLZ';
-			case 'PLZA':
-				return 'PLZ';
+			// case 'PLZ':
+			// 	return 'PLZ';
+			// case 'PLAZA':
+			// 	return 'PLZ';
+			// case 'PLZA':
+			// 	return 'PLZ';
 
+			case 'PT':
+				return 'PT';
 			case 'POINT':
 				return 'PT';
 			case 'POINTS':
 				return 'PTS';
 
 
+			case 'PRT':
+				return 'PRT';
 			case 'PORT':
 				return 'PRT';
+
+			case 'PRTS':
+				return 'PRTS';
 			case 'PORTS':
 				return 'PRTS';
 
 			// skipped a bunch
+			// moved ip
+			// case 'ROAD':
+			// 	return 'RD';
 
-			case 'ROAD':
-				return 'RD';
-
+			case 'RDS':
+				return 'RDS';
 			case 'ROADS':
 				return 'RDS';
 
+			case 'RTE':
+				return 'RTE';
 			case 'ROUTE':
 				return 'RTE';
 
 			// skipped a bunch
 
+			case 'SQ':
+				return 'SQ';
 			case 'SQR':
 				return 'SQ';
 			case 'SQRE':
@@ -509,11 +720,15 @@ class PCAddressFormatter  {
 			case 'SQUARE':
 				return 'SQ';
 
+			case 'SQS':
+				return 'SQS';
 			case 'SQRS':
 				return 'SQS';
 			case 'SQUARES':
 				return 'SQS';
 
+			case 'STA':
+				return 'STA';
 			case 'STATION':
 				return 'STA';
 			case 'STATN':
@@ -531,22 +746,30 @@ class PCAddressFormatter  {
 			// case 'STR':
 			// 	return 'ST';
 
+			case 'STS':
+				return 'STS';
 			case 'STREETS':
 				return 'STS';
 
 			// skipped a bunch
 
+			case 'TER':
+				return 'TER';
 			case 'TERR':
 				return 'TER';
 			case 'TERRACE':
 				return 'TER';
 
 
+			case 'TRWY':
+				return 'TRWY';
 			case 'THROUGHWAY':
 				return 'TRWY';
 
 			// skipped a bunch
 
+			case 'TRL':
+				return 'TRL';
 			case 'TRAIL':
 				return 'TRL';
 			case 'TRAILS':
@@ -556,6 +779,8 @@ class PCAddressFormatter  {
 
 			// skipped a bunch
 
+			case 'TPKE':
+				return 'TPKE';
 			case 'TRNPK':
 				return 'TPKE';
 			case 'TURNPIKE':
@@ -563,16 +788,24 @@ class PCAddressFormatter  {
 			case 'TURNPK':
 				return 'TPKE';
 
+			case 'UPAS':
+				return 'UPAS';
 			case 'UNDERPASS':
 				return 'UPAS';
 
 			// skipped a bunch
-			case 'VIEW':
-				return 'VW';
+			// case 'VW':
+			// 	return 'VW';
+			// case 'VIEW':
+			// 	return 'VW';
 
 			case 'VIEWS':
 				return 'VWS';
+			case 'VWS':
+				return 'VWS';
 
+			case 'VLG':
+				return 'VLG';
 			case 'VILL':
 				return 'VLG';
 			case 'VILLAG':
@@ -584,9 +817,13 @@ class PCAddressFormatter  {
 			case 'VILLIAGE':
 				return 'VLG';
 
+			case 'VLGS':
+				return 'VLGS';
 			case 'VILLAGES':
 				return 'VLGS';
 
+			case 'VL':
+				return 'VL';
 			case 'VILLE':
 				return 'VL';
 
@@ -600,12 +837,16 @@ class PCAddressFormatter  {
 			// case 'VSTA':
 			// 	return 'VIS';
 
+			case 'WALK':
+				return 'WALK';
 			case 'WALKS':
 				return 'WALK';
 			// moved up
 			// case 'WY':
 			// 	return 'WAY';
 
+			case 'WL':
+				return 'WL';
 			case 'WELL':
 				return 'WL';
 			case 'WELLS':

@@ -314,6 +314,25 @@ describe('PCAddressFormatter.js', () => {
 
 		});
 
+		it('should change 123 E Thompson Peak Pkwy. #456 > 123 E Vista De Valle', () => {
+
+			const street = PCAddressFormatter.street('123 E Thompson Peak Pkwy. #456');
+			const unit = PCAddressFormatter.unit('123 E Thompson Peak Pkwy. #456');
+
+			expect(unit).toBe("456");
+			expect(street).toBe("123 E Thompson Peak Pkwy");
+
+		});
+
+		it('should change 1234 E Cactus Rd > 1234 E Cactus Rd and nul unit', () => {
+
+			const street = PCAddressFormatter.street('1234 E Cactus Rd');
+			const unit = PCAddressFormatter.unit('1234 E Cactus Rd');
+
+			expect(unit).toBe(null);
+			expect(street).toBe("1234 E Cactus Rd");
+
+		});
 	});
 
 	describe('city', () => {
