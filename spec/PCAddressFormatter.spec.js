@@ -333,6 +333,17 @@ describe('PCAddressFormatter.js', () => {
 			expect(street).toBe("1234 E Cactus Rd");
 
 		});
+
+		it('should change 1234 E Cactus > 1234 E Cactus Rd and nul unit', () => {
+
+			const street = PCAddressFormatter.street('1234 E Cactus');
+			const unit = PCAddressFormatter.unit('1234 E Cactus');
+
+			expect(unit).toBe(null);
+			expect(street).toBe("1234 E Cactus");
+
+		});
+
 	});
 
 	describe('city', () => {

@@ -932,6 +932,7 @@ class PCAddressFormatter  {
 		// in case we don't find the suffix return what we have instead of an empty string
 		if(!foundSuffix){
 			finalStreetString = backUpString;
+			unitString = '';
 		}
 
 		// remove the trailing space "123 N Happy St " > "123 N Happy St"

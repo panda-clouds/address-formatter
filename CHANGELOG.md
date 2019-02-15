@@ -6,6 +6,7 @@
 ### 2.4.2
 
 - added case "rd": return "rd" for all C1s
+- fixed bug where backup string with "no unit" would result in enture string being unit
 
 ### 2.4.1
 
